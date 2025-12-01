@@ -2,14 +2,16 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Riders AR Experience</title>
-
+  <title>Outlook AR Experience</title>
+  
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
 
   <style>
-    body { margin: 0; overflow: hidden; }
-
+    body { margin: 0;
+    overflow: hidden; }
+    
     /* The "Start" Overlay */
     #start-screen {
       position: absolute;
@@ -24,7 +26,7 @@
       font-family: sans-serif;
       text-align: center;
     }
-
+    
     #start-button {
       padding: 15px 30px;
       font-size: 20px;
@@ -41,7 +43,7 @@
 <body>
 
   <div id="start-screen">
-    <h1>Outlook Come Alive</h1>
+    <h1>**Outlook Come Alive**</h1>
     <p>Please allow camera access when prompted.</p>
     <button id="start-button">Start Experience</button>
   </div>
@@ -54,7 +56,7 @@
     device-orientation-permission-ui="enabled: false">
 
     <a-assets>
-      <video id="riders-video" 
+      <video id="**outlook-video**" 
              src="./outlook.mp4" 
              preload="auto" 
              loop="true" 
@@ -69,7 +71,7 @@
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
     <a-entity mindar-image-target="targetIndex: 0">
-      <a-video src="#riders-video" 
+      <a-video src="#**outlook-video**" 
                position="0 0 0" 
                height="1" 
                width="1" 
@@ -81,14 +83,13 @@
   <script>
     const startButton = document.getElementById('start-button');
     const startScreen = document.getElementById('start-screen');
-    const video = document.getElementById('riders-video');
+    const video = document.getElementById('**outlook-video**');
 
     startButton.addEventListener('click', () => {
       startScreen.style.display = 'none';
       video.play(); 
       video.muted = false; 
     });
-
     const target = document.querySelector('[mindar-image-target]');
     target.addEventListener('targetFound', () => {
       video.play();

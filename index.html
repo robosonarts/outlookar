@@ -43,7 +43,7 @@
 <body>
 
   <div id="start-screen">
-    <h1>**Outlook Come Alive**</h1>
+    <h1>Outlook Come Alive</h1>
     <p>Please allow camera access when prompted.</p>
     <button id="start-button">Start Experience</button>
   </div>
@@ -56,7 +56,7 @@
     device-orientation-permission-ui="enabled: false">
 
     <a-assets>
-      <video id="**outlook-video**" 
+      <video id="outlook-video" 
              src="./outlook.mp4" 
              preload="auto" 
              loop="true" 
@@ -66,48 +66,36 @@
              muted 
              crossorigin="anonymous">
       </video>
-    <a-assets>
-      <video id="outlook-video" 
-             preload="auto" 
-             loop="true" 
-             playsinline 
-             webkit-playsinline 
-             autoplay 
-             muted 
-             crossorigin="anonymous">
-        <source src="./outlook.mp4" type="video/mp4">
-      </video>
     </a-assets>
 
-    </a-scene>
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-video src="#outlook-video" 
+               position="0 0 0" 
+               height="1" 
+               width="1" 
+               rotation="0 0 0">
+      </a-video>
+    </a-entity>
+  </a-scene>
 
   <script>
     const startButton = document.getElementById('start-button');
     const startScreen = document.getElementById('start-screen');
     const video = document.getElementById('outlook-video');
 
-    // **CRITICAL FIX 1: Explicitly load the video**
-    video.load();
-
     startButton.addEventListener('click', () => {
-      startScreen.style.display = 'none';
-      video.play(); 
-      video.muted = false; 
+      startScreen.style.display = 'none'; // Hide the start screen [cite: 11]
+      video.play(); // Start playing the video [cite: 11]
+      video.muted = false; // Unmute the video [cite: 11]
     });
-    
     const target = document.querySelector('[mindar-image-target]');
-    
-    // Play on target found
     target.addEventListener('targetFound', () => {
-      // **CRITICAL FIX 2: Check if video is truly playing**
-      if (video.paused) { 
-          video.play(); 
-      }
+      video.play(); // Play the video when the target image is found [cite: 12]
     });
-
-    // Pause on target lost
     target.addEventListener('targetLost', () => {
-      video.pause();
+      video.pause(); // Pause the video when the target is lost [cite: 13]
     });
   </script>
 </body>

@@ -66,34 +66,46 @@
              muted 
              crossorigin="anonymous">
       </video>
+    <a-assets>
+      <video id="outlook-video" 
+             preload="auto" 
+             loop="true" 
+             playsinline 
+             webkit-playsinline 
+             autoplay 
+             muted 
+             crossorigin="anonymous">
+        <source src="./outlook.mp4" type="video/mp4">
+      </video>
     </a-assets>
 
-    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-    <a-entity mindar-image-target="targetIndex: 0">
-      <a-video src="#**outlook-video**" 
-               position="0 0 0" 
-               height="1" 
-               width="1" 
-               rotation="0 0 0">
-      </a-video>
-    </a-entity>
-  </a-scene>
+    </a-scene>
 
   <script>
     const startButton = document.getElementById('start-button');
     const startScreen = document.getElementById('start-screen');
-    const video = document.getElementById('**outlook-video**');
+    const video = document.getElementById('outlook-video');
+
+    // **CRITICAL FIX 1: Explicitly load the video**
+    video.load();
 
     startButton.addEventListener('click', () => {
       startScreen.style.display = 'none';
       video.play(); 
       video.muted = false; 
     });
+    
     const target = document.querySelector('[mindar-image-target]');
+    
+    // Play on target found
     target.addEventListener('targetFound', () => {
-      video.play();
+      // **CRITICAL FIX 2: Check if video is truly playing**
+      if (video.paused) { 
+          video.play(); 
+      }
     });
+
+    // Pause on target lost
     target.addEventListener('targetLost', () => {
       video.pause();
     });
